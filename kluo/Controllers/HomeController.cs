@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using kluo.Models;
 
 namespace kluo.Controllers
 {
@@ -17,9 +18,10 @@ namespace kluo.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            // ViewBag.Message = "Your app description page.";
+            var model = new AboutModel {Name = "Kevin", Location = "Zhuhai, China"};
 
-            return View();
+            return View(model);
         }
 
         public ActionResult Contact()

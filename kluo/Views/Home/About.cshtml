@@ -1,23 +1,26 @@
-﻿@{
+﻿@model kluo.Models.AboutModel
+@{
     ViewBag.Title = "About";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
+    <h2>@Model.Name</h2>
 </hgroup>
+
+<div>Location: @Model.Location</div>
 
 <article>
     <p>
-        This is for Demo usage only.
+        Kevin is a Software Developer working in Zhuhai, China.
     </p>
 
     <p>
-        Use this area to provide additional information.
+        He has a son, who is 3 years old.
     </p>
 
     <p>
-        Use this area to provide additional information.
+        He likes Music pretty much.
     </p>
 </article>
 

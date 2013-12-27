@@ -13,6 +13,13 @@ namespace kluo
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // /Cursine/french
+
+            routes.MapRoute(
+                name: "Cuisine",
+                url:  "cuisine/{name}",
+                defaults: new {controller = "Cuisine", action = "Search", name = UrlParameter.Optional});
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

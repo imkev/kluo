@@ -12,7 +12,7 @@ namespace kluo.Controllers
 
         kluoDb _db = new kluoDb();
 
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm = null)
         {
             //var controller = RouteData.Values["controller"];
             //var action = RouteData.Values["action"];
@@ -22,7 +22,31 @@ namespace kluo.Controllers
 
             //ViewBag.Message = message;
 
-            var model = _db.Restaurants.ToList();
+            // var model = _db.Restaurants.ToList();
+            //var model = from r in _db.Restaurants
+            //            orderby r.Reviews.Average(reviews => reviews.Rating) descending
+            //            select new RestaurantListViewModel
+            //                {
+            //                    Id = r.Id,
+            //                    Name = r.Name,
+            //                    City = r.City,
+            //                    Country = r.Country,
+            //                    CountOfReviews = r.Reviews.Count()
+            //                };
+
+            var model = _db.Restaurants
+                           .OrderByDescending(r => r.Reviews.Average(reviews => reviews.Rating))
+                           .Where(r => searchTerm == null || r.Name.StartsWith(searchTerm))
+                           .Take(10)
+                           .Select(r => new RestaurantListViewModel
+                                           {
+                                               Id = r.Id,
+                                               Name = r.Name,
+                                               City = r.City,
+                                               Country = r.Country,
+                                               CountOfReviews = r.Reviews.Count()
+                                           }
+                                    );
 
             return View(model);
         }
@@ -30,7 +54,7 @@ namespace kluo.Controllers
         public ActionResult About()
         {
             // ViewBag.Message = "Your app description page.";
-            var model = new AboutModel {Name = "Kevin", Location = "Zhuhai, China"};
+            var model = new AboutModel { Name = "Kevin", Location = "Zhuhai, China" };
 
             return View(model);
         }
